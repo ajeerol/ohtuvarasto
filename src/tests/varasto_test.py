@@ -10,6 +10,19 @@ class TestVarasto(unittest.TestCase):
         # https://docs.python.org/3/library/unittest.html#unittest.TestCase.assertAlmostEqual
         self.assertAlmostEqual(self.varasto.saldo, 0)
 
+        # Testataan merkkijono
+        self.assertEqual(str(self.varasto), "saldo = 0, vielä tilaa 10")
+        
+    def test_luo_varasto_negatiivisella_tilavuudella(self):
+        # Luodaan uusi varasto negatiivisella tilavuudella
+        varasto = Varasto(-10)
+        self.assertAlmostEqual(varasto.tilavuus, 0.0)
+    
+    def test_luo_varasto_negatiivisella_saldolla(self):
+        # Luodaan uusi varasto negatiivisella saldolla
+        varasto = Varasto(10, -2)
+        self.assertAlmostEqual(varasto.saldo, 0.0)
+
     def test_uudella_varastolla_oikea_tilavuus(self):
         self.assertAlmostEqual(self.varasto.tilavuus, 10)
 
@@ -17,12 +30,24 @@ class TestVarasto(unittest.TestCase):
         self.varasto.lisaa_varastoon(8)
 
         self.assertAlmostEqual(self.varasto.saldo, 8)
+    
+    def test_lisays_lisaa_negatiivista_saldoa(self):
+        # Yritetään lisätä varastoon negatiivista saldoa
+        self.varasto.lisaa_varastoon(-11)
+
+        self.assertAlmostEqual(self.varasto.saldo, 0)
 
     def test_lisays_lisaa_pienentaa_vapaata_tilaa(self):
         self.varasto.lisaa_varastoon(8)
 
         # vapaata tilaa pitäisi vielä olla tilavuus-lisättävä määrä eli 2
         self.assertAlmostEqual(self.varasto.paljonko_mahtuu(), 2)
+
+        # lisätään yli sallitun tilavuuden
+        self.varasto.lisaa_varastoon(8)
+
+        # vapaa tila täytetty loppuun
+        self.assertAlmostEqual(self.varasto.saldo, 10)
 
     def test_ottaminen_palauttaa_oikean_maaran(self):
         self.varasto.lisaa_varastoon(8)
@@ -38,3 +63,12 @@ class TestVarasto(unittest.TestCase):
 
         # varastossa pitäisi olla tilaa 10 - 8 + 2 eli 4
         self.assertAlmostEqual(self.varasto.paljonko_mahtuu(), 4)
+
+        # tyhjennetään varastoa lisää
+        self.varasto.ota_varastosta(7)
+
+        # varastosta otettu kaikki 
+        self.assertAlmostEqual(self.varasto.saldo, 0)
+
+        # yritetään tyhjentää negatiivisella määrällä
+        self.assertAlmostEqual(self.varasto.ota_varastosta(-5), 0.0)
