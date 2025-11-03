@@ -1,3 +1,3 @@
 # ohtuvarasto
 
-https://github.com/ajeerol/ohtuvarasto/actions/workflows/main.yml/badge.svg
+![CI](https://github.com/ajeerol/ohtuvarasto/actions/workflows/main.yml/badge.svg)
