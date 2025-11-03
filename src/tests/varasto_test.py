@@ -67,7 +67,7 @@ class TestVarasto(unittest.TestCase):
         # tyhjennetään varastoa lisää
         self.varasto.ota_varastosta(7)
 
-        # varastosta otettu kaikki 
+        # varastosta otettu kaikki, saldo 0
         self.assertAlmostEqual(self.varasto.saldo, 0)
 
         # yritetään tyhjentää negatiivisella määrällä
