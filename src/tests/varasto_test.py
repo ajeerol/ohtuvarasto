@@ -11,7 +11,7 @@ class TestVarasto(unittest.TestCase):
         self.assertAlmostEqual(self.varasto.saldo, 0)
 
         # Testataan merkkijono
-        self.assertEqual(str(self.varasto), "saldo = 0, vielä tilaa 0")
+        self.assertEqual(str(self.varasto), "saldo = 0, vielä tilaa 10")
         
     def test_luo_varasto_negatiivisella_tilavuudella(self):
         # Luodaan uusi varasto negatiivisella tilavuudella
